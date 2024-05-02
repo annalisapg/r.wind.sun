@@ -19,11 +19,15 @@
 # % key: panels_width
 # % type: double
 # % description: Dimension (width) of the single object to simulate
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option
 # % key: panels_height
 # % type: double
 # % description: Dimension (height) of the single object to simulate
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option
 # % key: angle
@@ -31,6 +35,8 @@
 # % description: Vertical slope angle above ground level of the object
 # % options: 0-90
 # % answer: 0
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option
 # % key: orient
@@ -38,26 +44,35 @@
 # % description: Azimuth angle of the object
 # % options: 0-360
 # % answer: 0
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option
 # % key: panels_center_height
 # % type: double
 # % description: Height of the centroid of the single object above ground
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option
 # % key: obs_elev
 # % type: double
 # % description: Desired simulated height of the observer
+# % required: yes
 # %end
 # %option
 # % key: min_dist_from_panel
 # % type: double
 # % description: Minimum distance from the object center to compute impact from
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option
 # % key: max_dist_from_panel
 # % type: double
 # % description: Maximum distance from the object center to compute impact to
+# % guisection: Subhorizontal objects
+# % required: yes
 # %end
 # %option G_OPT_R_OUTPUT
 # % key: impact
@@ -67,6 +82,7 @@
 # % key: resolution
 # % type: integer
 # % description: Output impact map resolution
+# % required: yes
 #%end
 
 import grass.script as gs
