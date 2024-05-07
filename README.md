@@ -10,3 +10,6 @@ Minelli, A., Marchesini, I., Taylor, F. E., De Rosa, P., Casagrande, L., &amp; C
 
 # r.photo
 r.photo updates r.wind.sun code to be used in GRASS GIS 8 for the part limited to photovoltaic panels. The code is in very-alpha version, but all the functionalities of r.wind.sun have been updated and this specific part (photovoltaic panels visibility impact) has been recently used to evaluate visibility of existing and potential aquaculture facilites offshore Gaeta coast (Italy). 
+
+# r.wind
+r.wind updates r.wind.sun code to be used in GRASS GIS 8 for the part limited to aerogenerators. The code is in very-alpha version, but all the functionalities of r.wind.sun have been updated. The code has been successfully tested using the same .txt file (https://github.com/annalisapg/r.wind.sun/blob/master/inputfile.txt) previously used as wind turbine model in the old version of the code.
