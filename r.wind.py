@@ -205,7 +205,6 @@ def main():
 		ycoor=float(re.split('\|',i)[2]);
 		more=float(re.split('\|',i)[3]);
 		
-		gs.mapcalc('n_pann_visib = n_pann_visib+{a}'.format(a='los_boolean'));
 		gs.mapcalc('{a} = x() - {b}'.format(a='px',b=xcoor));
 		gs.mapcalc('{a} = y() - {b}'.format(a='py',b=ycoor));
 		gs.mapcalc('{a} = sqrt((({b})^2) + (({c})^2))'.format(a='dist_or',b='px',c='py'));
