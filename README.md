@@ -1,3 +1,11 @@
+This are the Windows omologue versions of r.wind.py and r.photovoltaic.py 
+
+Some minor changes are done with respect to the Linux/MacOS version: r.univar in r.photovoltaic.py is commented since it was a blocking command, "r" character is added both in r.wind and r.photovoltaic before the escape character ("\") in r.split execution.
+
+----------------------------------------------------------------------------
+
+A bit of history:
+
 # r.wind.sun
 r.wind.sun implements a method to calculate visibility of aerogenerators and photovoltaic panels using an impact index. 
 
