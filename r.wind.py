@@ -107,16 +107,18 @@ def main():
 	gs.run_command('g.gisenv',set='OVERWRITE=1');
 
 
+	gs.run_command('g.gisenv',set='OVERWRITE=1');
 
-	res_dem=float(re.split('=',re.split('\n',gs.read_command('r.info',flags='g',map=dem))[4])[1]);
+	res_dem=float(re.split('=',re.split(r'\n',gs.read_command('r.info',flags='g',map=dem))[4])[1]);
 	gs.mapcalc('fdem = float({a})'.format(a=dem));
 	gs.run_command('v.in.ascii', flags='z', input=machine,output='line',format='standard',separator='|',skip='0',x='1',y='2',z='0',cat='0');
 	gs.run_command('g.copy',vect='line,face');
 	a=gs.read_command('v.info',flags='g',map='line');
-	t=float((re.split('=',re.split('\n',a)[4]))[1]);
-	b=float((re.split('=',re.split('\n',a)[5]))[1]);
-	e=float((re.split('=',re.split('\n',a)[2]))[1]);
-	w=float((re.split('=',re.split('\n',a)[3]))[1]);
+	#r added in r.split for windows version of the code
+	t=float((re.split('=',re.split(r'\n',a)[4]))[1]);
+	b=float((re.split('=',re.split(r'\n',a)[5]))[1]);
+	e=float((re.split('=',re.split(r'\n',a)[2]))[1]);
+	w=float((re.split('=',re.split(r'\n',a)[3]))[1]);
 
 	att=(t - b ) - ( e - w )*0.577350269;
 	pala_att=(e - w)/1.5;
@@ -129,16 +131,16 @@ def main():
 	
 #added to move the imported machine in the right location
 	region_from=gs.read_command('v.info',flags='g',map='line_model');
-	ov=float((re.split('=',re.split('\n',region_from)[3]))[1]);
-	so=float((re.split('=',re.split('\n',region_from)[1]))[1]);
-	es=float((re.split('=',re.split('\n',region_from)[2]))[1]);
-	no=float((re.split('=',re.split('\n',region_from)[0]))[1]);
+	ov=float((re.split('=',re.split(r'\n',region_from)[3]))[1]);
+	so=float((re.split('=',re.split(r'\n',region_from)[1]))[1]);
+	es=float((re.split('=',re.split(r'\n',region_from)[2]))[1]);
+	no=float((re.split('=',re.split(r'\n',region_from)[0]))[1]);
 #reading parameters from the center of origin region
 	region_center=gs.read_command('g.region',vect='line_model',flags='pcg');
-	es_ce=float((re.split('=',re.split('\n',region_center)[11]))[1]);
-	no_ce=float((re.split('=',re.split('\n',region_center)[12]))[1]);
+	es_ce=float((re.split('=',re.split(r'\n',region_center)[11]))[1]);
+	no_ce=float((re.split('=',re.split(r'\n',region_center)[12]))[1]);
 #reading the bottom value of the original imported machine
-	bo=float((re.split('=',re.split('\n',region_from)[5]))[1]);
+	bo=float((re.split('=',re.split(r'\n',region_from)[5]))[1]);
 #writing the string with the original bounding box
 	bbox_from=str(str(ov)+','+str(so)+','+str(es)+','+str(no));
 	
@@ -146,28 +148,28 @@ def main():
 	gs.run_command('g.region',vect='face_model');
 	center=gs.read_command('g.region', flags='cg', vect='face_model');
 	#central coordinates of imported dxf model
-	east=float(re.split('=',(re.split('\n',center)[0]))[1]);
-	north=float(re.split('=',(re.split('\n',center)[1]))[1]);
+	east=float(re.split('=',(re.split(r'\n',center)[0]))[1]);
+	north=float(re.split('=',(re.split(r'\n',center)[1]))[1]);
 
 	info=gs.read_command('v.info', flags='g', map='face_model');
-	add=abs(float(re.split('=',re.split('\n',info)[5])[1]));
+	add=abs(float(re.split('=',re.split(r'\n',info)[5])[1]));
 	gs.run_command('g.region',rast='fdem',res=res_dem);
 	gs.run_command('v.drape',input=input,type='point',rast='fdem',scale='1.0',method='nearest',output='pointD');
 	a=gs.read_command('v.to.db',flags='pc', map='pointD', type='point', layer='1', qlayer='1', option='coor', units='meters', columns='est,nord,z');
-	b=re.split('\n',a)[1:-1];
-	n=int(re.split('\|',b[-1])[0]);
+	b=re.split(r'\n',a)[1:-1];
+	n=int(re.split(r'\|',b[-1])[0]);
 	bibidi='';
 	bobidi='';
 	stringa_linee='';
 	stringa_facce='';
 	for i in b:
 		gs.run_command('g.region',vect=input);
-		est=float(re.split('\|',i)[1]);
-		nord=float(re.split('\|',i)[2]);
-		more=float(re.split('\|',i)[3]);
+		est=float(re.split(r'\|',i)[1]);
+		nord=float(re.split(r'\|',i)[2]);
+		more=float(re.split(r'\|',i)[3]);
 		addmore=add+more;
 		
-		k=str(re.split('\|',i)[0]);
+		k=str(re.split(r'\|',i)[0]);
 		palo_facce='palo_facce_'+k;
 		palo_linee='palo_linee_'+k;
 		copy_line=str('line_model,'+palo_linee);
@@ -200,11 +202,12 @@ def main():
 	h=1;
 	for i in b:
 		gs.run_command('g.region',flags='a',vect=input,res=res_dem,n='n'+'+'+str(f),s='s'+'-'+str(f),e='e'+'+'+str(f),w='w'+'-'+str(f));
-		ca=int(re.split('\|',i)[0]);
-		xcoor=float(re.split('\|',i)[1]);
-		ycoor=float(re.split('\|',i)[2]);
-		more=float(re.split('\|',i)[3]);
+		ca=int(re.split(r'\|',i)[0]);
+		xcoor=float(re.split(r'\|',i)[1]);
+		ycoor=float(re.split(r'\|',i)[2]);
+		more=float(re.split(r'\|',i)[3]);
 		
+#		gs.mapcalc('n_pann_visib = n_pann_visib+{a}'.format(a='los_boolean'));
 		gs.mapcalc('{a} = x() - {b}'.format(a='px',b=xcoor));
 		gs.mapcalc('{a} = y() - {b}'.format(a='py',b=ycoor));
 		gs.mapcalc('{a} = sqrt((({b})^2) + (({c})^2))'.format(a='dist_or',b='px',c='py'));
@@ -304,7 +307,7 @@ def main():
 	for i in b:
 		z= 0;
 		t= 1;
-		cat=int(re.split('\|',i)[0]);
+		cat=int(re.split(r'\|',i)[0]);
 		gs.mapcalc('{a} = if(min({b}) == {c}, {d},{e})'.format(a='what_map',b=bibidi,c=str(cat)+'tot_distance',d=cat,e='what_map'));		
 		for z in re.split(',',bibidi):
 			gs.run_command('r.null',map=z,setnull='3000000');
@@ -332,7 +335,7 @@ def main():
 	gs.run_command('g.remove',flags='f',type='vector', name='areas,buf3,buf5,buf7,face,face_model,line,line_model,pointD');
 	
 	for i in b:
-		num=str(re.split('\|',i)[0]);
+		num=str(re.split(r'\|',i)[0]);
 		r2remove=num+'area_composta'+','+num+'area_elli'+','+num+'area_semi'+','+num+'tot_area'+','+num+'tot_distance';
 		v2remove='palo_linee_'+num+','+'palo_facce_'+num;
 		gs.run_command('g.remove',flags='f',type='raster', name=r2remove);

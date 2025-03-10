@@ -130,10 +130,11 @@ def main():
 	for i in e:
 		n= n + 1;
 		print(n);
-		x=float(re.split('\|',i)[1]);
-		y=float(re.split('\|',i)[2]);
-		z=float(re.split('\|',i)[3]);
-		cat=int(re.split('\|',i)[0]);
+		#r added for windows version of the code
+		x=float(re.split(r'\|',i)[1]);
+		y=float(re.split(r'\|',i)[2]);
+		z=float(re.split(r'\|',i)[3]);
+		cat=int(re.split(r'\|',i)[0]);
 		obs_elev= 1.70 + float(panels_center_height);
 		gs.run_command('g.remove',type='raster',flags='f',name='los_degree_'+str(cat));
 		coordinate=str(x)+','+str(y);
@@ -161,7 +162,8 @@ def main():
 		gs.run_command('r.null',map='imp_'+str(cat),null='0');
 		gs.mapcalc('{a} = {a}+{b}'.format(a=impact,b='imp_'+str(cat)));
 		gs.run_command('r.colors',flags='e',map=impact,color='rainbow');
-		gs.run_command('r.univar',map=impact);
+		#r.unuivar commented since gave problems with windows version of the code
+		#gs.run_command('r.univar',map=impact);
 		r2remove='apparent_height_'+str(cat)+','+'apparent_width_'+str(cat)+','+'azimuth_'+str(cat)+','+'dist_'+str(cat)+','+'dist_or_'+str(cat)+','+'dist_ver_'+str(cat)+','+'fov_'+str(cat)+','+'imp_'+str(cat)+','+'los_degree_'+str(cat);
 		gs.run_command('g.remove',type='raster',flags='f',name=r2remove);
 	
