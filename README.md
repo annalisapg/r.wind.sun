@@ -1,5 +1,5 @@
 # About this branch:
-This branch is the updated r.wind.sun code, splitted in two parts to effectively better respond to different necessities: in fact, while r.wind can be used only for aerogenerators, r.photovoltaic.py can be used to simulat the rpesence of any sub-horizontal object on the DEM.
+This branch is the updated r.wind.sun code, splitted in two parts to effectively better respond to different necessities: in fact, while r.wind can be used only for aerogenerators, r.photovoltaic.py can be used to simulate the presence of any sub-horizontal object on the DEM.
 
 -----------------------------------------------------------------
 
